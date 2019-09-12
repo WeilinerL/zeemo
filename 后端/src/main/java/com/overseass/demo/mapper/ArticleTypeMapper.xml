@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.overseass.demo.dao.ArticleTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.overseass.demo.pojo.ArticleType" >
+    <id column="int_type_id" property="intTypeId" jdbcType="INTEGER" />
+    <result column="str_type" property="strType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    int_type_id, str_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_article_type
+    where int_type_id = #{intTypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_article_type
+    where int_type_id = #{intTypeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.overseass.demo.pojo.ArticleType" >
+    insert into t_article_type (int_type_id, str_type)
+    values (#{intTypeId,jdbcType=INTEGER}, #{strType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.overseass.demo.pojo.ArticleType" >
+    insert into t_article_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="intTypeId != null" >
+        int_type_id,
+      </if>
+      <if test="strType != null" >
+        str_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="intTypeId != null" >
+        #{intTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="strType != null" >
+        #{strType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.overseass.demo.pojo.ArticleType" >
+    update t_article_type
+    <set >
+      <if test="strType != null" >
+        str_type = #{strType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where int_type_id = #{intTypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.overseass.demo.pojo.ArticleType" >
+    update t_article_type
+    set str_type = #{strType,jdbcType=VARCHAR}
+    where int_type_id = #{intTypeId,jdbcType=INTEGER}
+  </update>
+</mapper>

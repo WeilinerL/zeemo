@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.overseass.demo.dao.ConsultantMapper" >
+  <resultMap id="BaseResultMap" type="com.overseass.demo.pojo.Consultant" >
+    <id column="int_consultant_id" property="intConsultantId" jdbcType="INTEGER" />
+    <result column="str_picture" property="strPicture" jdbcType="VARCHAR" />
+    <result column="str_name" property="strName" jdbcType="VARCHAR" />
+    <result column="str_title" property="strTitle" jdbcType="VARCHAR" />
+    <result column="str_introduction" property="strIntroduction" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    int_consultant_id, str_picture, str_name, str_title, str_introduction
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_consultant
+    where int_consultant_id = #{intConsultantId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_consultant
+    where int_consultant_id = #{intConsultantId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.overseass.demo.pojo.Consultant" >
+    insert into t_consultant (int_consultant_id, str_picture, str_name, 
+      str_title, str_introduction)
+    values (#{intConsultantId,jdbcType=INTEGER}, #{strPicture,jdbcType=VARCHAR}, #{strName,jdbcType=VARCHAR}, 
+      #{strTitle,jdbcType=VARCHAR}, #{strIntroduction,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.overseass.demo.pojo.Consultant" >
+    insert into t_consultant
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="intConsultantId != null" >
+        int_consultant_id,
+      </if>
+      <if test="strPicture != null" >
+        str_picture,
+      </if>
+      <if test="strName != null" >
+        str_name,
+      </if>
+      <if test="strTitle != null" >
+        str_title,
+      </if>
+      <if test="strIntroduction != null" >
+        str_introduction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="intConsultantId != null" >
+        #{intConsultantId,jdbcType=INTEGER},
+      </if>
+      <if test="strPicture != null" >
+        #{strPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="strName != null" >
+        #{strName,jdbcType=VARCHAR},
+      </if>
+      <if test="strTitle != null" >
+        #{strTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="strIntroduction != null" >
+        #{strIntroduction,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.overseass.demo.pojo.Consultant" >
+    update t_consultant
+    <set >
+      <if test="strPicture != null" >
+        str_picture = #{strPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="strName != null" >
+        str_name = #{strName,jdbcType=VARCHAR},
+      </if>
+      <if test="strTitle != null" >
+        str_title = #{strTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="strIntroduction != null" >
+        str_introduction = #{strIntroduction,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where int_consultant_id = #{intConsultantId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.overseass.demo.pojo.Consultant" >
+    update t_consultant
+    set str_picture = #{strPicture,jdbcType=VARCHAR},
+      str_name = #{strName,jdbcType=VARCHAR},
+      str_title = #{strTitle,jdbcType=VARCHAR},
+      str_introduction = #{strIntroduction,jdbcType=VARCHAR}
+    where int_consultant_id = #{intConsultantId,jdbcType=INTEGER}
+  </update>
+</mapper>

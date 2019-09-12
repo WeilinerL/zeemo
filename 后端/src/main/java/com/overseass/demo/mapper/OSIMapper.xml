@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.overseass.demo.dao.OSIMapper" >
+  <resultMap id="BaseResultMap" type="com.overseass.demo.pojo.OSI" >
+    <id column="int_osi_id" property="intOsiId" jdbcType="INTEGER" />
+    <result column="str_type" property="strType" jdbcType="VARCHAR" />
+    <result column="str_title" property="strTitle" jdbcType="VARCHAR" />
+    <result column="str_author" property="strAuthor" jdbcType="VARCHAR" />
+    <result column="str_time" property="strTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.overseass.demo.pojo.OSI" extends="BaseResultMap" >
+    <result column="str_content" property="strContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    int_osi_id, str_type, str_title, str_author, str_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    str_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_osi
+    where int_osi_id = #{intOsiId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_osi
+    where int_osi_id = #{intOsiId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.overseass.demo.pojo.OSI" >
+    insert into t_osi (int_osi_id, str_type, str_title, 
+      str_author, str_time, str_content
+      )
+    values (#{intOsiId,jdbcType=INTEGER}, #{strType,jdbcType=VARCHAR}, #{strTitle,jdbcType=VARCHAR}, 
+      #{strAuthor,jdbcType=VARCHAR}, #{strTime,jdbcType=VARCHAR}, #{strContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.overseass.demo.pojo.OSI" >
+    insert into t_osi
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="intOsiId != null" >
+        int_osi_id,
+      </if>
+      <if test="strType != null" >
+        str_type,
+      </if>
+      <if test="strTitle != null" >
+        str_title,
+      </if>
+      <if test="strAuthor != null" >
+        str_author,
+      </if>
+      <if test="strTime != null" >
+        str_time,
+      </if>
+      <if test="strContent != null" >
+        str_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="intOsiId != null" >
+        #{intOsiId,jdbcType=INTEGER},
+      </if>
+      <if test="strType != null" >
+        #{strType,jdbcType=VARCHAR},
+      </if>
+      <if test="strTitle != null" >
+        #{strTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="strAuthor != null" >
+        #{strAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="strTime != null" >
+        #{strTime,jdbcType=VARCHAR},
+      </if>
+      <if test="strContent != null" >
+        #{strContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.overseass.demo.pojo.OSI" >
+    update t_osi
+    <set >
+      <if test="strType != null" >
+        str_type = #{strType,jdbcType=VARCHAR},
+      </if>
+      <if test="strTitle != null" >
+        str_title = #{strTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="strAuthor != null" >
+        str_author = #{strAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="strTime != null" >
+        str_time = #{strTime,jdbcType=VARCHAR},
+      </if>
+      <if test="strContent != null" >
+        str_content = #{strContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where int_osi_id = #{intOsiId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.overseass.demo.pojo.OSI" >
+    update t_osi
+    set str_type = #{strType,jdbcType=VARCHAR},
+      str_title = #{strTitle,jdbcType=VARCHAR},
+      str_author = #{strAuthor,jdbcType=VARCHAR},
+      str_time = #{strTime,jdbcType=VARCHAR},
+      str_content = #{strContent,jdbcType=LONGVARCHAR}
+    where int_osi_id = #{intOsiId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.overseass.demo.pojo.OSI" >
+    update t_osi
+    set str_type = #{strType,jdbcType=VARCHAR},
+      str_title = #{strTitle,jdbcType=VARCHAR},
+      str_author = #{strAuthor,jdbcType=VARCHAR},
+      str_time = #{strTime,jdbcType=VARCHAR}
+    where int_osi_id = #{intOsiId,jdbcType=INTEGER}
+  </update>
+</mapper>

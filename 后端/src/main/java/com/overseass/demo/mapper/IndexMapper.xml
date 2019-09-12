@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.overseass.demo.dao.IndexMapper" >
+  <resultMap id="BaseResultMap" type="com.overseass.demo.pojo.Index" >
+    <id column="int_index_id" property="intIndexId" jdbcType="INTEGER" />
+    <result column="str_type" property="strType" jdbcType="VARCHAR" />
+    <result column="str_name" property="strName" jdbcType="VARCHAR" />
+    <result column="str_content" property="strContent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    int_index_id, str_type, str_name, str_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_index
+    where int_index_id = #{intIndexId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_index
+    where int_index_id = #{intIndexId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.overseass.demo.pojo.Index" >
+    insert into t_index (int_index_id, str_type, str_name, 
+      str_content)
+    values (#{intIndexId,jdbcType=INTEGER}, #{strType,jdbcType=VARCHAR}, #{strName,jdbcType=VARCHAR}, 
+      #{strContent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.overseass.demo.pojo.Index" >
+    insert into t_index
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="intIndexId != null" >
+        int_index_id,
+      </if>
+      <if test="strType != null" >
+        str_type,
+      </if>
+      <if test="strName != null" >
+        str_name,
+      </if>
+      <if test="strContent != null" >
+        str_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="intIndexId != null" >
+        #{intIndexId,jdbcType=INTEGER},
+      </if>
+      <if test="strType != null" >
+        #{strType,jdbcType=VARCHAR},
+      </if>
+      <if test="strName != null" >
+        #{strName,jdbcType=VARCHAR},
+      </if>
+      <if test="strContent != null" >
+        #{strContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.overseass.demo.pojo.Index" >
+    update t_index
+    <set >
+      <if test="strType != null" >
+        str_type = #{strType,jdbcType=VARCHAR},
+      </if>
+      <if test="strName != null" >
+        str_name = #{strName,jdbcType=VARCHAR},
+      </if>
+      <if test="strContent != null" >
+        str_content = #{strContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where int_index_id = #{intIndexId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.overseass.demo.pojo.Index" >
+    update t_index
+    set str_type = #{strType,jdbcType=VARCHAR},
+      str_name = #{strName,jdbcType=VARCHAR},
+      str_content = #{strContent,jdbcType=VARCHAR}
+    where int_index_id = #{intIndexId,jdbcType=INTEGER}
+  </update>
+</mapper>

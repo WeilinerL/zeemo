@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.overseass.demo.dao.SummerCampMapper" >
+  <resultMap id="BaseResultMap" type="com.overseass.demo.pojo.SummerCamp" >
+    <id column="int_sm_id" property="intSmId" jdbcType="INTEGER" />
+    <result column="str_title" property="strTitle" jdbcType="VARCHAR" />
+    <result column="str_content" property="strContent" jdbcType="VARCHAR" />
+    <result column="str_img" property="strImg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    int_sm_id, str_title, str_content, str_img
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_summer_camp
+    where int_sm_id = #{intSmId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_summer_camp
+    where int_sm_id = #{intSmId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.overseass.demo.pojo.SummerCamp" >
+    insert into t_summer_camp (int_sm_id, str_title, str_content, 
+      str_img)
+    values (#{intSmId,jdbcType=INTEGER}, #{strTitle,jdbcType=VARCHAR}, #{strContent,jdbcType=VARCHAR}, 
+      #{strImg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.overseass.demo.pojo.SummerCamp" >
+    insert into t_summer_camp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="intSmId != null" >
+        int_sm_id,
+      </if>
+      <if test="strTitle != null" >
+        str_title,
+      </if>
+      <if test="strContent != null" >
+        str_content,
+      </if>
+      <if test="strImg != null" >
+        str_img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="intSmId != null" >
+        #{intSmId,jdbcType=INTEGER},
+      </if>
+      <if test="strTitle != null" >
+        #{strTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="strContent != null" >
+        #{strContent,jdbcType=VARCHAR},
+      </if>
+      <if test="strImg != null" >
+        #{strImg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.overseass.demo.pojo.SummerCamp" >
+    update t_summer_camp
+    <set >
+      <if test="strTitle != null" >
+        str_title = #{strTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="strContent != null" >
+        str_content = #{strContent,jdbcType=VARCHAR},
+      </if>
+      <if test="strImg != null" >
+        str_img = #{strImg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where int_sm_id = #{intSmId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.overseass.demo.pojo.SummerCamp" >
+    update t_summer_camp
+    set str_title = #{strTitle,jdbcType=VARCHAR},
+      str_content = #{strContent,jdbcType=VARCHAR},
+      str_img = #{strImg,jdbcType=VARCHAR}
+    where int_sm_id = #{intSmId,jdbcType=INTEGER}
+  </update>
+</mapper>

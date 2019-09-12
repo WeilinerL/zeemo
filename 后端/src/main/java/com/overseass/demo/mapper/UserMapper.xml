@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.overseass.demo.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.overseass.demo.pojo.User" >
+    <id column="int_user_id" property="intUserId" jdbcType="INTEGER" />
+    <result column="str_user_name" property="strUserName" jdbcType="VARCHAR" />
+    <result column="str_password" property="strPassword" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    int_user_id, str_user_name, str_password
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_a
+    where int_user_id = #{intUserId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_user_a
+    where int_user_id = #{intUserId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.overseass.demo.pojo.User" >
+    insert into t_user_a (int_user_id, str_user_name, str_password
+      )
+    values (#{intUserId,jdbcType=INTEGER}, #{strUserName,jdbcType=VARCHAR}, #{strPassword,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.overseass.demo.pojo.User" >
+    insert into t_user_a
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="intUserId != null" >
+        int_user_id,
+      </if>
+      <if test="strUserName != null" >
+        str_user_name,
+      </if>
+      <if test="strPassword != null" >
+        str_password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="intUserId != null" >
+        #{intUserId,jdbcType=INTEGER},
+      </if>
+      <if test="strUserName != null" >
+        #{strUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="strPassword != null" >
+        #{strPassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.overseass.demo.pojo.User" >
+    update t_user_a
+    <set >
+      <if test="strUserName != null" >
+        str_user_name = #{strUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="strPassword != null" >
+        str_password = #{strPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where int_user_id = #{intUserId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.overseass.demo.pojo.User" >
+    update t_user_a
+    set str_user_name = #{strUserName,jdbcType=VARCHAR},
+      str_password = #{strPassword,jdbcType=VARCHAR}
+    where int_user_id = #{intUserId,jdbcType=INTEGER}
+  </update>
+</mapper>

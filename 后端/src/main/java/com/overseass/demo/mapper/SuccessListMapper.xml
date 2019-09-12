@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.overseass.demo.dao.SuccessListMapper" >
+  <resultMap id="BaseResultMap" type="com.overseass.demo.pojo.SuccessList" >
+    <id column="t_list_id" property="tListId" jdbcType="INTEGER" />
+    <result column="str_picture" property="strPicture" jdbcType="VARCHAR" />
+    <result column="str_content" property="strContent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    t_list_id, str_picture, str_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_success_list
+    where t_list_id = #{tListId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_success_list
+    where t_list_id = #{tListId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.overseass.demo.pojo.SuccessList" >
+    insert into t_success_list (t_list_id, str_picture, str_content
+      )
+    values (#{tListId,jdbcType=INTEGER}, #{strPicture,jdbcType=VARCHAR}, #{strContent,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.overseass.demo.pojo.SuccessList" >
+    insert into t_success_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tListId != null" >
+        t_list_id,
+      </if>
+      <if test="strPicture != null" >
+        str_picture,
+      </if>
+      <if test="strContent != null" >
+        str_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tListId != null" >
+        #{tListId,jdbcType=INTEGER},
+      </if>
+      <if test="strPicture != null" >
+        #{strPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="strContent != null" >
+        #{strContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.overseass.demo.pojo.SuccessList" >
+    update t_success_list
+    <set >
+      <if test="strPicture != null" >
+        str_picture = #{strPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="strContent != null" >
+        str_content = #{strContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where t_list_id = #{tListId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.overseass.demo.pojo.SuccessList" >
+    update t_success_list
+    set str_picture = #{strPicture,jdbcType=VARCHAR},
+      str_content = #{strContent,jdbcType=VARCHAR}
+    where t_list_id = #{tListId,jdbcType=INTEGER}
+  </update>
+</mapper>
